@@ -23,6 +23,15 @@ RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 8
 # Add .NET to global PATH
 ENV PATH="${PATH}:/usr/share/dotnet"
 
+# Install .NET 6 runtime required by the project
+RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin \
+    --version 6.0.27 \
+    --runtime dotnet \
+    --install-dir /usr/share/dotnet
+
+# Optional: confirm .NET versions installed
+RUN /usr/share/dotnet/dotnet --list-runtimes
+
 # Set environment variables for agent version
 ARG AGENT_VERSION=2.206.1
 ARG ARCH=x64
