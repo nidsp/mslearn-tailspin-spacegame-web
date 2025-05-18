@@ -23,10 +23,16 @@ RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 8
 # Add .NET to global PATH
 ENV PATH="${PATH}:/usr/share/dotnet"
 
-# Install .NET 6 runtime required by the project
+# Install .NET 6 runtime
 RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin \
     --version 6.0.27 \
     --runtime dotnet \
+    --install-dir /usr/share/dotnet
+
+# Install .NET 6 ASP.NET Core runtime (needed for web apps)
+RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin \
+    --version 6.0.27 \
+    --runtime aspnetcore \
     --install-dir /usr/share/dotnet
 
 # Optional: confirm .NET versions installed
