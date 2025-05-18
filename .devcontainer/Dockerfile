@@ -15,8 +15,13 @@ RUN apt-get update && apt-get install -y \
     libunwind8 \
     net-tools \
     libssl3 \
-    libicu72 \
     libkrb5-3
+
+# Install .NET 8 SDK (system-wide)
+RUN curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 8.0.100 --install-dir /usr/share/dotnet
+
+# Add .NET to global PATH
+ENV PATH="${PATH}:/usr/share/dotnet"
 
 # Set environment variables for agent version
 ARG AGENT_VERSION=2.206.1
